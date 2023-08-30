@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             notification.setContentTitle(binding.eText1.text.toString())
             notification.setContentText(binding.eText2.text.toString())
             notification.setSmallIcon(R.drawable.low)
-            notification.setPriority(NotificationCompat.PRIORITY_LOW).build()
+            notification.setPriority(NotificationCompat.PRIORITY_DEFAULT).build()
             val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.notify(2, notification.build())
         }
