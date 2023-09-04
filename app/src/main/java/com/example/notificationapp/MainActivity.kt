@@ -1,6 +1,9 @@
 package com.example.notificationapp
 
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
@@ -17,8 +20,20 @@ class MainActivity : AppCompatActivity() {
             val notification = NotificationCompat.Builder(this, App().CHANNEL_ID1)
             notification.setContentTitle(binding.eText1.text.toString())
             notification.setContentText(binding.eText2.text.toString())
+            val intent=Intent(this, MainActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             notification.setSmallIcon(R.drawable.high)
-                notification.setPriority(NotificationCompat.PRIORITY_HIGH).build()
+                notification.setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .setColor(Color.MAGENTA)
+                    .setContentIntent(pendingIntent)
+                    .addAction(R.drawable.high,"Back", pendingIntent)
+                    .addAction(R.drawable.high,"Play", null)
+                    .addAction(R.drawable.high,"NExt", null)
+                    .setOnlyAlertOnce(true)
+                    .setAutoCancel(true)
+                    .build()
+
             val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.notify(1, notification.build())
         }
@@ -28,7 +43,12 @@ class MainActivity : AppCompatActivity() {
             notification.setContentTitle(binding.eText1.text.toString())
             notification.setContentText(binding.eText2.text.toString())
             notification.setSmallIcon(R.drawable.low)
-            notification.setPriority(NotificationCompat.PRIORITY_DEFAULT).build()
+            notification.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(Color.MAGENTA)
+                .setOnlyAlertOnce(true)
+                .setAutoCancel(true)
+                .build()
             val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.notify(2, notification.build())
         }
